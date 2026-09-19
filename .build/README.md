@@ -36,9 +36,10 @@ this exhibit will tell two different stories.
 
 The web version and print set both include a ninth phrase, "Eat, drink,
 and be merry" (Luke 12:19), beyond the 8-card starter set originally
-recommended. This was Adam's own addition, not part of the original
-design doc's recommendation — noted here for the record, not flagged as
-an error.
+recommended. Deliberate, not a stray addition: nine cards lay out as a
+clean 3×3 grid, where eight leaves an awkward gap. Worth keeping in mind
+if this set ever gets trimmed or expanded again — the count isn't
+arbitrary, it's tied to the grid layout.
 
 ## Companion exhibits
 

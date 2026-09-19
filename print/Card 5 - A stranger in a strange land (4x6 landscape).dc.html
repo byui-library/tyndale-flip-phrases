@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Archivo:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; background: #e9e2cf; }
+    ::selection { background: rgba(179,74,58,.22); }
+  </style>
+</helmet>
+<div style="min-height:520px; width:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:22px; padding:56px 24px; background:#e9e2cf; font-family:'Archivo',sans-serif;">
+
+  <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+    <div style="font-family:'Archivo',sans-serif; font-size:12px; font-weight:600; letter-spacing:.17em; text-transform:uppercase; color:#5f4826;">Special Collections &amp; Archives &mdash; Proof, Card 5 of 8 &middot; 4&times;6 landscape</div>
+    <div style="font-family:'Newsreader',serif; font-style:italic; font-size:15px; color:#4a4339;">Tap the card to flip it</div>
+  </div>
+
+  <div
+    role="button"
+    tabindex="0"
+    aria-pressed="{{ flipped }}"
+    onClick="{{ toggleFlip }}"
+    onKeyDown="{{ onKeyDown }}"
+    style="width:600px; height:400px; max-width:100%; aspect-ratio:6/4; perspective:2200px; cursor:pointer; outline:none;"
+    style-focus="box-shadow:0 0 0 3px rgba(179,74,58,.35); border-radius:6px;"
+  >
+    <div style="{{ rotatorStyle }}">
+
+      <!-- FRONT: Before -->
+      <div style="position:absolute; inset:0; backface-visibility:hidden; background:#f6efdd; border:1px solid rgba(43,38,32,.16); border-radius:4px; box-shadow:0 10px 30px rgba(43,38,32,.14); padding:32px 38px; display:flex; flex-direction:column; box-sizing:border-box;">
+
+        <div style="font-family:'Archivo',sans-serif; font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:#5f4826;">Exodus 2:22 &nbsp;&middot;&nbsp; Before Tyndale</div>
+
+        <div style="flex:1; display:flex; flex-direction:column; margin-top:4px; min-height:0; justify-content:center; gap:14px;">
+          <div>
+            <div style="font-family:'Archivo',sans-serif; font-size:10.5px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:#5f4826; margin-bottom:6px;">Vulgate, Latin</div>
+            <div style="font-family:'Newsreader',serif; font-style:italic; font-size:16px; line-height:1.32; color:#2b2620;">Quae peperit filium quem vocavit Gersam, dicens: Advena fui in terra aliena.</div>
+            <sc-if value="{{ showGloss }}" hint-placeholder-val="{{ true }}">
+              <div style="font-family:'Newsreader',serif; font-style:italic; font-size:12.5px; line-height:1.4; color:#4a4339; margin-top:6px;">&ldquo;&hellip;saying: I have been a newcomer/sojourner in a foreign land.&rdquo;</div>
+            </sc-if>
+          </div>
+
+          <div style="height:1px; background:rgba(43,38,32,.18);"></div>
+
+          <div>
+            <div style="font-family:'Archivo',sans-serif; font-size:10.5px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:#5f4826; margin-bottom:6px;">Wycliffe, 1395</div>
+            <div style="font-family:'Newsreader',serif; font-size:16px; line-height:1.32; color:#2b2620;">And she childed a son to him, whom he called Gershom, and said, For I am a newcomer in a foreign land.</div>
+          </div>
+        </div>
+
+        <div style="align-self:flex-end; font-family:'Newsreader',serif; font-style:italic; font-size:13px; color:#9b8c6f;">Turn over &rarr;</div>
+      </div>
+
+      <!-- BACK: After -->
+      <div style="position:absolute; inset:0; backface-visibility:hidden; transform:rotateY(180deg); background:#fbf9f2; border:1px solid rgba(43,38,32,.10); border-radius:4px; box-shadow:0 10px 30px rgba(43,38,32,.14); padding:34px 40px; display:flex; flex-direction:column; box-sizing:border-box;">
+
+        <div style="font-family:'Archivo',sans-serif; font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:#8f3a2c;">Exodus 2:22 &nbsp;&middot;&nbsp; Tyndale, 1520<span style="font-size:.72em;">s</span>&ndash;30<span style="font-size:.72em;">s</span></div>
+
+        <div style="flex:1; display:flex; align-items:center;">
+          <div style="font-family:'Newsreader',serif; font-weight:500; font-size:23px; line-height:1.36; color:#2b2620;">which bare a sonne, ad he called him Gerson: for he sayde. I haue bene a straunger in a straunge lande.</div>
+        </div>
+
+        <div style="height:1px; background:rgba(43,38,32,.12); margin-bottom:14px;"></div>
+        <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px;">
+          <div style="font-family:'Newsreader',serif; font-style:italic; font-size:13px; color:#9b8c6f;">&larr; Turn back</div>
+          <div style="text-align:right; max-width:78%;">
+            <div style="font-family:'Newsreader',serif; font-style:italic; font-size:14px; color:#5f4826; margin-bottom:4px;">&ldquo;A stranger in a strange land&rdquo;</div>
+            <div style="font-family:'Newsreader',serif; font-style:italic; font-size:13.5px; line-height:1.4; color:#8f3a2c;">Tyndale&rsquo;s echo between &ldquo;stranger&rdquo; and &ldquo;strange&rdquo; became a permanent piece of English idiom &mdash; even the title of a famous 1961 science-fiction novel.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div style="display:flex; gap:8px;">
+    <div style="width:7px; height:7px; border-radius:50%; background:{{ dotFrontColor }};"></div>
+    <div style="width:7px; height:7px; border-radius:50%; background:{{ dotBackColor }};"></div>
+  </div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 700, &quot;height&quot;: 620}, &quot;showGloss&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { flipped: false };
+
+  toggle = () => this.setState(s => ({ flipped: !s.flipped }));
+
+  renderVals() {
+    const flipped = this.state.flipped;
+    const showGloss = this.props.showGloss ?? true;
+    return {
+      flipped,
+      showGloss,
+      toggleFlip: this.toggle,
+      onKeyDown: (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.toggle(); } },
+      rotatorStyle: `position:relative; width:100%; height:100%; transition:transform .7s cubic-bezier(.4,.1,.2,1); transform-style:preserve-3d; transform:${flipped ? 'rotateY(180deg)' : 'rotateY(0deg)'};`,
+      dotFrontColor: flipped ? 'rgba(43,38,32,.25)' : '#b34a3a',
+      dotBackColor: flipped ? '#b34a3a' : 'rgba(43,38,32,.25)'
+    };
+  }
+}
+</script>
+</body>
+</html>

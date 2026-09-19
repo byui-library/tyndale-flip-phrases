@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { margin: 0; }
+    .swnl-tile:hover { border-color: #b34a3a !important; color: #b34a3a !important; }
+    .swnl-reveal:hover { opacity: .78; }
+    .swnl-back:hover { color: #2b2620 !important; }
+  </style>
+</helmet>
+<div style="width:100%; min-height:760px; box-sizing:border-box; background:#f3ebd7; font-family:'Archivo',sans-serif; color:#4a4339; padding:clamp(20px,4vw,44px); display:flex; flex-direction:column; gap:clamp(18px,3vw,28px);">
+
+  <div style="text-align:center; display:flex; flex-direction:column; gap:6px;">
+    <div style="font-family:'Archivo',sans-serif; font-weight:600; font-size:12px; letter-spacing:.17em; text-transform:uppercase; color:#8a6d3b;">Tyndale 500 &middot; Same Words, New Language</div>
+    <div style="font-family:'Newsreader',serif; font-style:italic; font-weight:500; font-size:clamp(24px,3.4vw,34px); color:#2b2620;">Tap a phrase you know. See where it came from.</div>
+  </div>
+
+  <sc-if value="{{ isGrid }}" hint-placeholder-val="{{ true }}">
+    <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:clamp(10px,1.6vw,16px); max-width:920px; margin:0 auto; width:100%;">
+      <sc-for list="{{ tiles }}" as="tile" hint-placeholder-count="8">
+        <button class="swnl-tile" onClick="{{ tile.onClick }}" style="font-family:'Archivo',sans-serif; font-weight:600; font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:#2b2620; background:#fbf7ec; border:1px solid rgba(43,38,32,.18); border-radius:3px; padding:18px 14px; min-height:64px; cursor:pointer; text-align:center; display:flex; align-items:center; justify-content:center; transition:color .15s,border-color .15s;">{{ tile.label }}</button>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isBefore }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:720px; margin:0 auto; width:100%; display:flex; flex-direction:column; gap:18px;">
+      <button class="swnl-back" onClick="{{ back }}" style="align-self:flex-start; background:none; border:none; cursor:pointer; font-family:'Archivo',sans-serif; font-weight:600; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:#8a6d3b; padding:8px 0; min-height:44px;">&larr; Back to phrases</button>
+
+      <div style="font-family:'Archivo',sans-serif; font-weight:600; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#8a6d3b;">{{ phrase.ref }}</div>
+
+      <div style="background:#fbf7ec; border:1px solid rgba(43,38,32,.16); border-radius:3px; padding:clamp(16px,3vw,24px); display:flex; flex-direction:column; gap:10px;">
+        <div style="font-family:'Archivo',sans-serif; font-weight:600; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#9b8c6f;">Latin Vulgate</div>
+        <div style="font-family:'Newsreader',serif; font-style:italic; font-size:clamp(17px,2.1vw,19px); line-height:1.5; color:#2b2620;">{{ phrase.latin }}</div>
+        <sc-if value="{{ phrase.gloss }}" hint-placeholder-val="{{ false }}">
+          <div style="font-family:'Archivo',sans-serif; font-size:14px; line-height:1.5; color:#9b8c6f;">Modern gloss: {{ phrase.gloss }}</div>
+        </sc-if>
+      </div>
+
+      <div style="background:#fbf7ec; border:1px solid rgba(43,38,32,.16); border-radius:3px; padding:clamp(16px,3vw,24px); display:flex; flex-direction:column; gap:10px;">
+        <div style="font-family:'Archivo',sans-serif; font-weight:600; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#9b8c6f;">Wycliffe, 1395</div>
+        <div style="font-family:'Newsreader',serif; font-size:clamp(17px,2.2vw,19px); line-height:1.6; color:#2b2620;">{{ phrase.wycliffe }}</div>
+      </div>
+
+      <button class="swnl-reveal" onClick="{{ reveal }}" style="background:none; border:1px solid #b34a3a; border-radius:3px; cursor:pointer; font-family:'Archivo',sans-serif; font-weight:600; font-size:13px; letter-spacing:.08em; color:#b34a3a; padding:14px 18px; min-height:44px; text-align:center; transition:opacity .15s;">Tap to reveal Tyndale's translation &rarr;</button>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isAfter }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:720px; margin:0 auto; width:100%; display:flex; flex-direction:column; gap:18px;">
+      <div style="display:flex; gap:20px; align-items:center;">
+        <button class="swnl-back" onClick="{{ back }}" style="background:none; border:none; cursor:pointer; font-family:'Archivo',sans-serif; font-weight:600; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:#8a6d3b; padding:8px 0; min-height:44px;">&larr; Back to phrases</button>
+        <button class="swnl-back" onClick="{{ showBefore }}" style="background:none; border:none; cursor:pointer; font-family:'Archivo',sans-serif; font-weight:600; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:#9b8c6f; padding:8px 0; min-height:44px;">See before-text again</button>
+      </div>
+
+      <div style="font-family:'Archivo',sans-serif; font-weight:600; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#8a6d3b;">Tyndale, 1520s&ndash;30s &middot; {{ phrase.ref }}</div>
+
+      <div style="background:#fbf7ec; border:1px solid rgba(43,38,32,.16); border-radius:3px; padding:clamp(22px,4vw,34px);">
+        <div style="font-family:'Newsreader',serif; font-weight:500; font-size:clamp(24px,3.2vw,32px); line-height:1.4; color:#2b2620;">{{ phrase.tyndale }}</div>
+      </div>
+
+      <div style="font-family:'Newsreader',serif; font-style:italic; font-size:clamp(15px,1.8vw,17px); line-height:1.55; color:#b34a3a;">{{ phrase.callout }}</div>
+    </div>
+  </sc-if>
+
+  <div style="margin-top:auto; padding-top:12px; border-top:1px solid rgba(43,38,32,.14); text-align:center; font-family:'Archivo',sans-serif; font-size:12px; color:#9b8c6f;">Latin Vulgate: vulgate.org &middot; Wycliffe and Tyndale text: Bible Study Tools (biblestudytools.com)</div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { view: 'grid', selected: null };
+
+  phrases = [
+    { label: "Let there be light", ref: "Genesis 1:3",
+      latin: "Dixitque Deus: Fiat lux. Et facta est lux.",
+      gloss: "And God said: Let there be made light. And light was made.",
+      wycliffe: "And God seide, Li\u021Ft be maad, and li\u021Ft was maad.",
+      tyndale: "And God said: Let there be lyghte and there was lyghte.",
+      callout: "Still the King James Bible's wording today, almost word for word." },
+    { label: "Am I my brother's keeper?", ref: "Genesis 4:9",
+      latin: "Et ait Dominus ad Cain: Ubi est Abel frater tuus? Qui respondit: Nescio, num custos fratris mei sum.",
+      gloss: null,
+      wycliffe: "And the Lord said to Cain, Where is Abel thy brother? Which answered, I know not; whether I am the keeper of my brother?",
+      tyndale: "And the LORde sayd vnto Cain: where is Abell thy brother? And he sayd: I can not tell am I my brothers keper?",
+      callout: "Still one of the most-quoted lines in the English language, essentially unchanged since Tyndale." },
+    { label: "In the beginning was the Word", ref: "John 1:1",
+      latin: "In principio erat Verbum, et Verbum erat apud Deum, et Deus erat Verbum.",
+      gloss: null,
+      wycliffe: "In the beginning was the word, and the word was at God, and God was the word.",
+      tyndale: "In the beginnynge was the worde and the worde was with God: and the worde was God.",
+      callout: "Wycliffe's \"at God\" becomes Tyndale's \"with God\" \u2014 the King James Version, and every modern Bible since, follows Tyndale." },
+    { label: "The powers that be", ref: "Romans 13:1\u20132",
+      latin: "Omnis anima potestatibus sublimioribus subdita sit... quae autem sunt a Deo, ordinatae sunt.",
+      gloss: "Let every soul be subject to the higher powers... and those that are of God, are ordained.",
+      wycliffe: "Every soul be subject to higher powers. For there is no power but of God, and those things that be of God, be ordained.",
+      tyndale: "Let every soule submit him selfe vnto the auctorite of ye hyer powers... The powers that be are ordeyned of God.",
+      callout: "This exact phrase passed unchanged into the King James Bible and is still everyday English, five hundred years later." },
+    { label: "Shepherds abiding in the field", ref: "Luke 2:8",
+      latin: "Et pastores erant in regione eadem vigilantes, et custodientes vigilias noctis supra gregem suum.",
+      gloss: "And there were shepherds in the same region, watching and keeping the night watches over their flock.",
+      wycliffe: "And shepherds were in the same country, waking and keeping the watches of the night on their flock.",
+      tyndale: "And ther were in the same region shepherdes abydinge in the felde and watching their flocke by nyght.",
+      callout: "Wycliffe's Latin-mirroring \"waking and keeping the watches of the night\" doesn't mention a field at all. \"Abiding in the field\" is Tyndale's own image \u2014 the one that made it into the King James Bible, and into how the Christmas story is still told today." },
+    { label: "Let my people go", ref: "Exodus 5:1",
+      latin: "...haec dicit Dominus Deus Israhel: Dimitte populum meum, ut sacrificet mihi in deserto.",
+      gloss: null,
+      wycliffe: "The Lord God of Israel saith these things, Deliver thou my people, that it make sacrifice to me in desert.",
+      tyndale: "...thus sayth the Lorde God of Israel. Let my people goo, that they may kepe holye daye vnto me in the wildernesse.",
+      callout: "A phrase that later became a rallying cry far beyond this exhibit, echoed in spirituals, civil rights oratory, and protest movements for centuries after." },
+    { label: "To heal the brokenhearted", ref: "Luke 4:18",
+      latin: "...sanare contritos corde...",
+      gloss: null,
+      wycliffe: "...he sent me to preach to poor men, to heal contrite men in heart...",
+      tyndale: "...to preache ye gospell to ye poore he hath sent me: and to heale the broken harted...",
+      callout: "Wycliffe's clinical \"heal contrite men in heart\" becomes Tyndale's compound word \"broken harted\" \u2014 the single word \"brokenhearted\" is his own coinage." },
+    { label: "He gave up the ghost", ref: "Matthew 27:50",
+      latin: "Iesus autem iterum clamans voce magna, emisit spiritum.",
+      gloss: null,
+      wycliffe: "Forsooth Jesus again cried with a great voice, and gave up the ghost.",
+      tyndale: "Iesus cryed agayne with a lowde voyce and yelded vp the goost.",
+      callout: "A rare instance where Wycliffe's phrase is the one that stuck, not Tyndale's own wording \u2014 the King James translators picked Wycliffe's older phrase here. Honest evidence that Tyndale didn't simply erase everything before him." },
+    { label: "Eat, drink, and be merry", ref: "Luke 12:19",
+      latin: "Et dicam animae meae: Anima, habes multa bona posita in annos plurimos: requiesce, comede, bibe, epulare.",
+      gloss: null,
+      wycliffe: "And I shall say to my soul, Soul, thou hast many goods kept into full many years; rest thou, eat, drink, and make feast.",
+      tyndale: "and I will saye to my soule: Soule thou hast moch goodes layde vp in stoore for many yeares take thyne ease: eate drinke and be mery.",
+      callout: "\"Make feast\" becomes \"be merry\" \u2014 a small change that made an entire phrase quotable." }
+  ];
+
+  selectPhrase(i) {
+    this.setState({ view: 'before', selected: i });
+  }
+
+  renderVals() {
+    const phrases = this.phrases;
+    const tiles = phrases.map((p, i) => ({ label: p.label, onClick: () => this.selectPhrase(i) }));
+    const view = this.state.view;
+    const phrase = this.state.selected != null ? phrases[this.state.selected] : null;
+    return {
+      tiles,
+      isGrid: view === 'grid',
+      isBefore: view === 'before',
+      isAfter: view === 'after',
+      phrase,
+      back: () => this.setState({ view: 'grid', selected: null }),
+      reveal: () => this.setState({ view: 'after' }),
+      showBefore: () => this.setState({ view: 'before' })
+    };
+  }
+}
+</script>
+</body>
+</html>

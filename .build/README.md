@@ -15,12 +15,15 @@ from Google Fonts.
 Published automatically to openEQUELLA on every push to `main` (see
 `.github/workflows/oeq-publish.yml`).
 
-## Print deliverables (`print/`)
+## Print deliverables (`.build/src/print/`)
 
 The physical flip-card set: nine individual 4×6" landscape cards, a
 reference card, a combined "Print - Flip Cards" sheet, plus the shared
 `doc-page.js` and `_ds/` design-system assets that sheet depends on. These
-are fabrication files for the physical exhibit, not part of the website.
+are fabrication files for the physical exhibit, not part of the website —
+kept under `.build/` so openEQUELLA's publish step (which uploads every
+non-hidden root-level file as its own attachment) doesn't sweep up the
+design-tool scaffold and raw card sources as if they were deliverables.
 
 **⚠️ Known inconsistency, flagged 2026-09-18, not yet fixed:** the web
 version's Card 5 was swapped from "A stranger in a strange land" to
